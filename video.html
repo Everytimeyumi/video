@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="./js/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		
+		<!-- <div style="text-align:center;">
+			<div>
+				<button onclick="playPause()">播放/暂停</button>
+				<button onclick="makeBig()">大</button>
+				<button onclick="makeNormal()">中</button>
+				<button onclick="makeSmall()">小</button>
+			</div> -->
+			<div class="big1" style="width:100%;height:500px;margin-top:100px;"></div>
+		<!-- </div> -->
+<script>
+			 	//var xx=location.href
+			 	//var id=xx.substr(64);
+
+	var myVideo = document.getElementById("video1");
+	// function playPause() {
+
+		
+	// 	if (myVideo.paused)
+	// 		myVideo.play();
+	// 	else
+	// 		myVideo.pause();
+	// }
+	// function makeBig() {
+	// 	myVideo.width = 560;
+	// }
+	// function makeSmall() {
+	// 	myVideo.width = 320;
+	// }
+	// function makeNormal() {
+	// 	myVideo.width = 420;
+	// } 
+
+
+
+
+
+
+
+
+			 	function GetQueryString(name){
+                     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                     var r = window.location.search.substr(1).match(reg);
+                     if(r!=null)return  unescape(r[2]); return null;
+}
+
+//  alert(document.cookie);
+// 调用方法
+var id=GetQueryString("id");
+       $.ajax({
+					type: 'get',
+					url: "http://www.mytp1.cn/public/index.php/home/Shipin/video",
+					data: {id:id},
+					dataType: 'jsonp',
+					jsonp:"callback",
+                    jsonpCallback:"jsonpCallback",     
+					success: function(jsonpdata) {
+						console.log(jsonpdata);
+						var html="";
+						html+='<video src="http://www.mytp1.cn'+jsonpdata.video+'"  id ="video1"controls="controls"width="100%"height="800"></video>';
+						$(".big1").html(html);
+						},
+							error: function(jsonpdata) {
+                            alert("no");
+						}
+			});
+		</script>
+	</body>
+</html>

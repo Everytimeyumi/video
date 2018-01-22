@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://www.swiper.com.cn/demo/refresh-and-load-swiper4.x.html -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Swiper demo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #fff;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      height: 5px;
+      line-height: 100px;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .refresh {
+      position: absolute;
+      line-height: 100px;
+      bottom: 100%;
+      text-align: center;
+      width: 100%;
+    }
+
+    .loadmore {
+      position: absolute;
+      line-height: 20px;
+      top: 100%;
+      text-align: center;
+      width: 100%;
+    }
+
+    .big {
+      width: 100%;
+      height: 100%;
+      background-color: #e0e0e0;
+
+    }
+
+    .content {
+      display: block;
+      width: 3.75rem;
+      height: 4.6rem;
+      float: left;
+      display: block;
+      text-decoration: none;
+      color: black;
+      /* padding-top: 10px; */
+      position: relative;
+      background-color: gray;
+    }
+
+    .video {
+      width: 100%;
+      height: 1.6rem;
+      /* margin: 10px; */
+    }
+
+    .video img {
+      width: 100%;
+      height: 4.5rem;
+    }
+
+    .title {
+      width: 100%;
+      height: 30 px;
+      font-size: 14px;
+      /* position: relative; */
+      /* margin-left: 12px; */
+      background-color: #000;
+      opacity: 0.7;
+      position: absolute;
+      bottom: 0;
+      /* left:10px; */
+    }
+
+    .zi {
+      float: left;
+      width: 60%;
+      height: 30px;
+      line-height: 30px;
+      overflow: hidden;
+      font-family: "微软雅黑";
+      /* color:black; */
+      /* font-weight: 550; */
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .zan {
+      width: 20px;
+      ;
+      height: 20px;
+      line-height: 40px;
+      float: left;
+
+    }
+
+    .number {
+      font-family: "KaiTi";
+      position: absolute;
+      left: 76%;
+      top: -3px;
+      color: #fff;
+
+
+    }
+
+    .parent {
+      height: 400px;
+      width: 100px;
+      overflow-y: scroll;
+      margin-top: 30px;
+      margin-left: 100px;
+    }
+
+    .child {
+      height: 50px;
+      text-align: center;
+      list-style: none;
+      background: #ccc;
+      border: 1px solid #999;
+    }
+
+    .foo {
+      display: flex;
+      justify-content: center;
+      background-color: black;
+      height: 1.3rem;
+
+
+    }
+
+    .foo a img {
+      margin-top: 23px;
+
+    }
+
+    .foo a {
+      color: green;
+      text-decoration: none;
+    }
+
+    .foo a {
+      width: 33%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .foo a p {
+      font-size: 6px;
+      height: 15px;
+      line-height: 15px;
+    }
+
+    .foo a {
+
+      padding: 0;
+      margin: 0;
+      margin-bottom: 5px;
+
+    }
+
+    .di {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+    }
+  </style>
+  <script>
+    (function (doc, win) {
+      // alert(100 )
+
+      var docEl = doc.documentElement,
+        isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+        dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+        dpr = window.top === window.self ? dpr : 1,
+        //被iframe引用时，禁止缩放
+        dpr = 1,
+        scale = 1 / dpr,
+        resizeEvt = 'orientationchange'
+
+          in window ? 'orientationchange' : 'resize';
+      docEl.dataset.dpr = dpr;
+
+      var metaEl = doc.createElement('meta');
+      metaEl.name = 'viewport';
+      metaEl.content = 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale;
+      docEl.firstElementChild.appendChild(metaEl);
+
+      var recalc = function () {
+
+        var width = docEl.clientWidth;
+
+        if (width / dpr > 750) {
+          //  alert(10)
+          width = 750 * dpr;
+        }
+
+        // 乘以100，px : rem = 100 : 1
+        docEl.style.fontSize = 100 * (width / 750) + 'px';
+      };
+      recalc()
+
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+    })(document, window);
+
+  </script>
+</head>
+
+<body>
+  <!-- Swiper -->
+  <div class="swiper-container swiper-container-vertical swiper-container-free-mode">
+
+    <div class="swiper-wrapper" style="height: 2000px;">
+      <div class="refresh">释放刷新</div>
+      <div class="swiper-slide swiper-slide-active">Slide 1</div>
+      <div class="big"></div>
+      <div class="swiper-slide swiper-slide-next">Slide 2</div>
+      
+      <div class="loadmore">加载更多</div>
+    </div>
+    <div class="swiper-scrollbar">
+      <div class="swiper-scrollbar-drag" style="height: 384.524px; transform: translate3d(0px, 0px, 0px);"></div>
+    </div>
+  </div>
+  <div class="di">
+
+    <div class="foo">
+      <a href="./video1.html">
+        <img src="./video.png" alt="">
+        <p>爆笑短片</p>
+      </a>
+      <a href="">
+        <img src="./video.png" alt="">
+        <p>爆笑短片</p>
+      </a>
+      <a href="./video2.html">
+        <img src="./video.png" alt="">
+        <p>爆笑短片</p>
+      </a>
+    </div>
+
+    <!-- Swiper JS -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="./Swiper demo_files/swiper.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      $(function () {
+        
+
+        var htm = "";
+        var videoid;
+        function getInfor() {
+          $.ajax({
+            type: 'get',
+            url: "http://www.mytp1.cn/public/index.php/home/Shipin/liebiao?claaback",
+            data: {},
+            dataType: 'jsonp',
+            jsonp: "callback",
+            jsonpCallback: "jsonpCallback",
+            success: function (jsonpdata) {
+              console.log(jsonpdata)
+
+              for (var i = 0; i < jsonpdata.length; i++) {
+                htm += '<a class="content" >';
+                htm += '<div class="video"><img src="http://www.mytp1.cn' + jsonpdata[i].pic + '"width="100%"height="397"><div class="id"style="display:none">' + jsonpdata[i].id + '</div></div>';
+                htm += '<div class="title">';
+                htm += '<div class="zi">' + jsonpdata[i].title + '</div>';
+                htm += '<div class="zan"><img src="./zan.png"><div class="number" id="nu" >' + jsonpdata[i].viewcount + '<span class="hid" style="display:none">' + jsonpdata[i].id + '</span></div></div>';
+                htm += '</div>';
+                htm += '</a>';
+
+                $(".big").html(htm)
+              };
+
+              $('.zan').on("click", function (event) {
+                // videoid = $(this).find(".hid").html();
+                // zan = $(this).find("").prev().html();
+                console.log($(this));
+
+                //  var nb=$("#nu").html();
+                var nb = $(this).find(".number");
+
+                var addNumber = nb.html();
+
+                //  var nb =$(this).find(".number") .html();
+                //var nb = $(this).find(".number").html();
+                //console.log(nb);
+                // console.log(videoid)
+                $.ajax({
+                  type: 'get',
+                  url: "http://www.mytp1.cn/public/index.php/home/Shipin/viewcount",
+                  data: { id: videoid },
+                  dataType: 'jsonp',
+                  jsonp: "callback",
+                  jsonpCallback: "jsonpCallback",
+                  success: function (jsonpdata) {
+
+
+                    // console.log(jsonpdata);
+                    console.log("number" + addNumber)
+                    var a = parseInt(addNumber);
+                    a++
+                    console.log(a);
+                    // console.log(a);
+                    // $("#nu").html(a)
+                    nb.html(a);
+
+
+
+                    // location.reload();
+                  },
+                  error: function (jsonpdata) {
+                    // alert("no");
+                  }
+                });
+              });
+
+              $(".video").click(function () {
+                videoid = $(this).find(".id").html();
+                console.log($(this));
+                function jump1() {
+                  url = "video.html?id=" + videoid;//此处拼接内容
+                  window.location.href = encodeURI(url);
+                }
+                jump1();
+              });
+
+            }
+          })
+
+
+        }
+        getInfor()
+        
+        refreshEnd = false;
+        times = 0;//加载次数
+        oriSpeed = 300
+        var swiper = new Swiper('.swiper-container', {
+          
+          loop: true,
+          
+          speed: oriSpeed,
+          slidesPerView: 'auto',
+          freeMode: true,
+          direction: 'vertical',
+          setWrapperSize: true,
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+          on: {
+            //下拉释放刷新
+            touchEnd: function () {
+              swiper = this
+              refreshText = swiper.$el.find('.refresh')
+              if (this.translate > 100) {
+                swiper.setTransition(this.params.speed);
+                swiper.setTranslate(100);
+                swiper.touchEventsData.isTouched = false;//跳过touchEnd事件后面的跳转(4.0.5)
+                refreshText.html('刷新中')
+
+                swiper.allowTouchMove = false;
+                setTimeout(function () {//模仿AJAX
+                 // swiper.removeAllSlides();
+                  // for (i = 0; i < 20; i++) {
+                  //   swiper.appendSlide('<div class="swiper-slide">New Slide' + (i + 1) + '</div>');
+                  //   refreshText.html('刷新完成');
+                  //   refreshEnd = true;
+                  //   swiper.allowTouchMove = true;
+                  // }
+                  getInfor()
+                }, 1000)
+
+              }
+
+            },
+            touchStart: function () {
+              if (refreshEnd == true) {
+                this.$el.find('.refresh').html('释放刷新');
+                refreshEnd = false;
+              }
+              //alert(0)
+            },
+
+
+            //加载更多
+            momentumBounce: function () {//非正式反弹回调函数，上拉释放加载更多可参考上例
+              alert("123")
+              swiper = this
+              //slidesheight=0;
+              //for(h=0;h<swiper.slides.length;h++){
+              //	slidesheight+=swiper.slides[h].offsetHeight;
+              //}
+              //endTranslate=this.height-slidesheight-20
+              //if(this.translate < endTranslate){}
+
+              if (swiper.translate < -100) {
+
+                swiper.allowTouchMove = false;//禁止触摸
+                swiper.params.virtualTranslate = true;//定住不给回弹
+                setTimeout(function () {//模仿AJAX
+                  for (m = 0; m < 20; m++) {
+                    swiper.appendSlide('<div class="swiper-slide">moreSlide' + (times * 20 + m + 1) + '</div>');
+                  }
+                  swiper.params.virtualTranslate = false;
+                  swiper.allowTouchMove = true;
+                  times++
+                }, 1000)
+
+              }
+            },
+          }
+        });
+
+
+
+
+
+
+        // alert(0);
+
+
+      })
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
